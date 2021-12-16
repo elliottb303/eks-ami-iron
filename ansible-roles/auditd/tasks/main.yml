@@ -1,0 +1,32 @@
+---
+
+- name: Install auditd package and dependencies
+  yum: name=audit state=latest
+
+- name: Start auditd post reboot
+  service: name=auditd state=started enabled=yes
+
+- name: Enforce auditd number of local log files
+  replace:
+    path: /etc/audit/auditd.conf
+    regexp: 'num_logs = 5'
+    replace: 'num_logs = 20'
+
+- name: Enforce maximum local auditd logs
+  replace:
+    path: /etc/audit/auditd.conf
+    regexp: 'max_log_file = 8'
+    replace: 'max_log_file = 10'
+
+- name: Install auditd rules in /etc/auditd/rules
+  copy: src=audit.rules dest=/etc/audit/rules.d/audit.rules owner=root group=root mode=0600
+
+- name: Set auditd rules live before a reboot
+  shell: /sbin/augenrules --load
+
+- name: Enable boot services auditd logging
+  lineinfile: dest=/etc/default/grub line='GRUB_CMDLINE_LINUX="audit=1"' state=present
+  register: changed_grub_config
+
+- name: Update GRUB bootloader with audit=1 change
+  shell: grub2-mkconfig -o /boot/grub2/grub.cfg

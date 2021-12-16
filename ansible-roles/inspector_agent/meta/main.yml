@@ -1,0 +1,12 @@
+galaxy_info:
+  description: Installs and configures AWS Inspector agent
+  author: ghinchcliff
+  company: Pearson
+  min_ansible_version: 2.2
+  platforms:
+    - name: EL
+      versions:
+        - 7
+  categories:
+    - clover
+    - ami

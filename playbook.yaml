@@ -1,0 +1,9 @@
+---
+
+- name: Clover-EKS-ami
+  hosts: all
+  roles:
+    - role: ansible-roles/inspector_agent
+    - role: ansible-roles/cis-1-2
+    - role: ansible-roles/selinux
+    - role: ansible-roles/auditd

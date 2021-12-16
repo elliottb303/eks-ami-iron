@@ -1,0 +1,16 @@
+---
+
+selinux_policy: targeted
+selinux_state: enforcing
+
+selinux_booleans: []
+selinux_fcontexts: []
+selinux_logins: []
+selinux_ports: []
+selinux_restore_dirs: []
+
+selinux_all_purge: no
+selinux_booleans_purge: no
+selinux_fcontexts_purge: no
+selinux_ports_purge: no
+selinux_logins_purge: no
